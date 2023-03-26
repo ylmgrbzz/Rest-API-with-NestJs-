@@ -1,10 +1,13 @@
 import { Controller, Get, Param } from "@nestjs/common";
-
+import { UsersService } from "./users.service";
+import { CreateUsersDto } from "./dto/create-users.dto";
+import { Post, Body } from "@nestjs/common";
 @Controller('users')
 export class UsersController {
+    constructor(private usersService: UsersService) { }
     @Get()
     getAll() {
-        return "All users";
+        return this.usersService.findAll();
     }
     @Get(":id")
     getOne(@Param('id') id) {
@@ -15,7 +18,5 @@ export class UsersController {
     create(@Body() userDto: CreateUsersDto) {
         return `Creating a user ${userDto.name}`
     }
-
-
 }
 
