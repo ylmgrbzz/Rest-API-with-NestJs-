@@ -18,25 +18,25 @@ export class UsersService {
     // ];
     constructors(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
-    async getAll() {
+    async getAll(): Promise<User[]> {
         return await this.userModel.find();
     }
 
-    async getOne(id) {
+    async getOne(id): Promise<User> {
         return await this.userModel.findById(id);
     }
 
 
-    async create(userDto) {
+    async create(userDto): Promise<User> {
         const user = new this.userModel(userDto);
         return await user.save();
     }
 
-    async update(id, userDto) {
+    async update(id, userDto): Promise<User> {
         return await this.userModel.findByIdAndUpdate(id, userDto, { new: true });
     }
 
-    async remove(id) {
+    async remove(id): Promise<User> {
         return await this.userModel.findByIdAndDelete(id);
     }
 
